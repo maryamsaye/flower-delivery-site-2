@@ -27,12 +27,18 @@ const Flowers = () => {
     }
   };
 
+  // ✅ Set image base URL depending on environment
+  const baseURL =
+    process.env.NODE_ENV === 'development'
+      ? 'http://localhost:4002'
+      : window.location.origin;
+
   return (
     <div className="flower-container">
       <h1 className="flower-title">Flowers</h1>
       <div className="flower-grid">
         {flowers.map((flower) => {
-          const imageUrl = `http://localhost:4002${flower.Image}`;
+          const imageUrl = `${baseURL}${flower.Image}`;
 
           return (
             <div className="flower-card" key={flower._id}>
