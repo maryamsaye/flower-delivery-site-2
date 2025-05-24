@@ -1,13 +1,13 @@
 .footer {
   text-align: center;
   padding: 1rem;
-  background-color: #f8f8f8;
-  color: #555;
+  background-color:white;
+  color: black;
   font-size: 0.9rem;
-  border-top: 1px solid #ddd;
+  border-top: 1px solid black;
   margin-top: 2rem;
 }
 
 .footer strong {
-  color: #e91e63;
+  color: black;
 }
