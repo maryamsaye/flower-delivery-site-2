@@ -21,7 +21,7 @@ app.use((req, res, next) => {
   next();
 });
 
-
+// ✅ Connect to MongoDB
 const MONGO_URI = process.env.MONGO_URI;
 mongoose.connect(MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log("Connected to MongoDB"))
@@ -34,15 +34,15 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use('/api/flowers', flowersRouter);
 app.use('/api/users', userRouter);
 
-// ✅ Serve frontend build
-// app.use(express.static(path.join(__dirname, '../frontend/build')));
-// app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+// ✅ Serve frontend build in production only
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(__dirname, '../frontend/build')));
 
-
-// ✅ Catch-all route to serve React app
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../frontend/build/index.html'));
-});
+  // ✅ Catch-all route to serve React app
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, '../frontend/build/index.html'));
+  });
+}
 
 // ✅ Start server
 app.listen(PORT, () => {
