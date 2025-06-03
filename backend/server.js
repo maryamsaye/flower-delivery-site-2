@@ -12,8 +12,9 @@ const PORT = process.env.PORT || 4002;
 // Enable CORS for all origins (you can restrict this if needed)
 app.use(cors({
   origin: [
-    'http://localhost:4002',
     'http://localhost:3000',
+    'http://localhost:4002',
+    'https://admin-panel-b3lg.onrender.com/flowers'
   ],
   credentials: true
 }));
