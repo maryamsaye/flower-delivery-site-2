@@ -5,7 +5,9 @@ import './Flowers.css';
 const Flowers = () => {
   const [flowers, setFlowers] = useState([]);
 
+  // const backendURL = process.env.REACT_APP_API_URL || 'https://flower-delivery-site-2.onrender.com';/
   const backendURL = process.env.REACT_APP_API_URL || 'https://flower-delivery-site-2.onrender.com';
+
 
   useEffect(() => {
     const fetchFlowers = async () => {
@@ -37,11 +39,14 @@ const Flowers = () => {
       <h1 className="flower-title">Flowers</h1>
       <div className="flower-grid">
         {flowers.map((flower) => {
-          console.log('Flower image:', flower.Image); // ✅ Correct logging
+          const imageUrl = flower.Image?.startsWith('http')
+            ? flower.Image // Cloudinary image or full URL
+            : `${backendURL}${flower.Image}`; // Local server image
+
           return (
             <div className="flower-card" key={flower._id}>
               <img
-                src={`${backendURL}${flower.Image}`}
+                src={imageUrl}
                 className="flower-image"
                 alt={flower.title}
               />
