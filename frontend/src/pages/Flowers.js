@@ -5,8 +5,8 @@ import './Flowers.css';
 const Flowers = () => {
   const [flowers, setFlowers] = useState([]);
 
-  // const backendURL = process.env.REACT_APP_API_URL || 'https://flower-delivery-site-2.onrender.com';/
-  const backendURL = process.env.REACT_APP_API_URL || 'https://flower-delivery-site-2.onrender.com';
+  const backendURL = process.env.REACT_APP_API_URL || 'https://backend-uyjs.onrender.com';
+
 
 
   useEffect(() => {
