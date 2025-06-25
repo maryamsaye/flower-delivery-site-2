@@ -11,7 +11,7 @@ const app = express();
 // CORS setup (secure and compatible with credentials)
 const allowedOrigins = [
   'http://localhost:3000',
-  'https://flower-delivery-site.onrender.com',
+  'https://flower-delivery-site-2-1.onrender.com',
 ];
 
 app.use(cors({
