@@ -14,7 +14,6 @@ const AddFlower = () => {
   const [previewImage, setPreviewImage] = useState(null);
   const fileInputRef = useRef(null);
 
-  const backendURL = process.env.REACT_APP_API_URL || 'https://flower-delivery-site-2.onrender.com/api/flowers';
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -51,7 +50,11 @@ const AddFlower = () => {
     data.append('Image', formData.Image);
 
     try {
-      await axios.post(`${backendURL}/api/flowers`, data);
+      await axios.post("https://flower-delivery-site.onrender.com/api/flowers",data, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        }
+      });
       alert('Flower added successfully!');
       setFormData({
         title: '',

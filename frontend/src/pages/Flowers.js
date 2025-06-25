@@ -5,14 +5,12 @@ import './Flowers.css';
 const Flowers = () => {
   const [flowers, setFlowers] = useState([]);
 
-  const backendURL = process.env.REACT_APP_API_URL || 'https://backend-uyjs.onrender.com';
-
-
+  const backendURL = process.env.REACT_APP_API_URL || 'https://flower-delivery-site-2-3.onrender.com';
 
   useEffect(() => {
     const fetchFlowers = async () => {
       try {
-        const res = await axios.get(`${backendURL}/api/flowers`);
+        const res = await axios.get(`${backendURL}/api/flowers`, { withCredentials: true });
         setFlowers(res.data);
       } catch (err) {
         console.error('Error fetching flowers:', err);
@@ -25,8 +23,8 @@ const Flowers = () => {
   const handleDelete = async (id) => {
     if (window.confirm('Are you sure you want to delete this flower?')) {
       try {
-        await axios.delete(`${backendURL}/api/flowers/${id}`);
-        const res = await axios.get(`${backendURL}/api/flowers`);
+        await axios.delete(`${backendURL}/api/flowers/${id}`, { withCredentials: true });
+        const res = await axios.get(`${backendURL}/api/flowers`, { withCredentials: true });
         setFlowers(res.data);
       } catch (error) {
         console.error('Error deleting flower:', error);
@@ -40,8 +38,8 @@ const Flowers = () => {
       <div className="flower-grid">
         {flowers.map((flower) => {
           const imageUrl = flower.Image?.startsWith('http')
-            ? flower.Image // Cloudinary image or full URL
-            : `${backendURL}${flower.Image}`; // Local server image
+            ? flower.Image
+            : `${backendURL}${flower.Image}`;
 
           return (
             <div className="flower-card" key={flower._id}>
