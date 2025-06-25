@@ -1,4 +1,4 @@
-const express = require('express');
+const express = require('express'); 
 const flowersRouter = require('./routes/flowers');
 const userRouter = require('./routes/users');
 const mongoose = require('mongoose');
@@ -8,16 +8,24 @@ const cors = require('cors');
 
 const app = express();
 
-// CORS setup
+// CORS setup (secure and compatible with credentials)
+const allowedOrigins = [
+  'http://localhost:3000',
+  'https://flower-delivery-site.onrender.com',
+];
+
 app.use(cors({
-  origin: [
-    'http://localhost:3000',
-    'http://localhost:4002',
-    'https://admin-panel-b3lg.onrender.com',
-    'https://flower-delivery-site-2-3.onrender.com' // ✅ Your frontend
-  ],
-  credentials: true
+  origin: (origin, cb) => {
+    // allow REST tools like Postman that send no Origin header
+    if (!origin) return cb(null, true);
+    return allowedOrigins.includes(origin)
+      ? cb(null, true)
+      : cb(new Error('Not allowed by CORS'));
+  },
+  credentials: true,
 }));
+app.options('*', cors());  // handles OPTIONS preflight requests
+
 
 // JSON parser
 app.use(express.json());
@@ -34,18 +42,17 @@ mongoose.connect(MONGO_URI)
   .then(() => console.log('Connected to MongoDB'))
   .catch(err => console.error('MongoDB connection error:', err));
 
-// Static file serving
+// Serve static image files
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
-// API routes
+// Routes
 app.use('/api/flowers', flowersRouter);
 app.use('/api/users', userRouter);
 
-// Uncomment this block if you’re building a production frontend
+// Optional: serve frontend in production
 /*
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, '../frontend/build')));
-
   app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, '../frontend/build/index.html'));
   });
