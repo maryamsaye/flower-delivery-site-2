@@ -43,14 +43,14 @@ const AddFlower = () => {
     e.preventDefault();
 
     const data = new FormData();
-    data.append('title', formData.title);
-    data.append('description', formData.description);
-    data.append('price', formData.price);
-    data.append('category', formData.category);
-    data.append('Image', formData.Image);
+      data.append('title', formData.title);
+      data.append('description', formData.description);
+      data.append('price', formData.price);
+      data.append('category', formData.category);
+      data.append('Image', formData.Image);
 
     try {
-      await axios.post("https://flower-delivery-site.onrender.com/api/flowers",data, {
+      await axios.post("https://flower-delivery-site.onrender.com/api/flowers", data, {
         headers: {
           "Content-Type": "multipart/form-data",
         }

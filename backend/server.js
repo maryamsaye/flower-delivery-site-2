@@ -9,26 +9,15 @@ const cors = require('cors');
 const app = express();
 
 // CORS setup (secure and compatible with credentials)
-const cors = require('cors');
 
 const allowedOrigins = [
   'http://localhost:3000',
-  'https://flower-delivery-site-2-1.onrender.com',  // ✅ frontend on Render
+  'https://flower-delivery-site-2-1.onrender.com',  
 ];
 
-app.use(cors({
-  origin: function (origin, callback) {
-    if (!origin) return callback(null, true); // allow Postman etc.
-    if (allowedOrigins.includes(origin)) {
-      return callback(null, true);
-    } else {
-      return callback(new Error('CORS not allowed for this origin'));
-    }
-  },
-  credentials: false, // Only true if you use cookies or session auth
-}));
+app.use(cors()); // allows all origins (for testing only)
 
-app.options('*', cors()); // handles preflight OPTIONS requests
+
 
 
 // JSON parser
